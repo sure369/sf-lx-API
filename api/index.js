@@ -10,7 +10,7 @@ var oauth2 = new jsforce.OAuth2({
   loginUrl: 'https://gulfsothebysinternational--cddev.sandbox.my.salesforce.com',
   clientId: '3MVG9GXbtnGKjXe7F9lwjAiAmI0L4sNQkwMccr1wXX8E6k_R_hM.B0QCl23_lvLpJAMeLUnIK4DANKwKRQ0Ot',
   clientSecret: '970ACB43CDD44544F5C3C432A941FFE2C1CAC9A160009D6F1C26742EF7C61D31',
-  redirectUri: `http://localhost:3001/redirect`,
+  redirectUri: `https://sf-react.vercel.app/redirect`,
 });
 var token = "";
 var userid = "";
@@ -39,7 +39,7 @@ app.post('/api/connection', (req, res) =>{
     res.send(token);
   });
 });
-app.post('/userdetails', (req, res) => {
+app.post('/api/userdetails', (req, res) => {
   console.log("inside user details  ")
   console.log("user id inside user details ", userid)
   let token = req.headers.token;
@@ -59,7 +59,7 @@ app.post('/userdetails', (req, res) => {
     }
   })
 })
-app.post('/getrecord', (req, res) => {
+app.post('/api/getrecord', (req, res) => {
   console.log("inside get records")
   let token = req.headers.token;
   console.log('token get record ', token);
@@ -73,7 +73,7 @@ app.post('/getrecord', (req, res) => {
   })
 })
 console.log('test');
-app.post('/recordId', (req, res) => {
+app.post('/api/recordId', (req, res) => {
   var propertyRecordId;
   let token = req.headers.token;
   console.log(' get recordid page token ', token);
@@ -98,9 +98,9 @@ app.post('/recordId', (req, res) => {
   }
  
 })
-app.use('*',(req,res)=>{
-  res.send('Default Response');
-})
+// app.use('*',(req,res)=>{
+//   res.send('Default Response test');
+// })
 app.listen(port, () => {
   console.log("Connected to port successfully")
 })
