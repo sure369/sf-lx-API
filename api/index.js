@@ -80,19 +80,19 @@ app.post('/api/recordId', (req, res) => {
   });
     console.log(req.query.searchId)
     console.log("session Id ",req.headers)
-    propertyRecordId = req.query.searchId 
+    propertyRecordId = req.query.searchId || "a2F1q000002dnpbEAA"
     console.log("propertyRecordId ",propertyRecordId)
     console.log("token outside query ",token)
     if(propertyRecordId !== undefined){
     let queryStmt = "select id,CD_Project__c,Name,CD_Unit_Number__c,Type__c,CD_uaefield_Property_Sub_Type__c,CD_Title__c,CD_View__c,CD_Tower__c,CD_Area__c,CD_Country__c,CD_Floors__c,CD_Agent_Name__c ,Status__c from CD_Property__c where Id='"+propertyRecordId+"'";
     console.log('queryStmt:', queryStmt);
-    conn.query(queryStmt,(err, result) =>{
+    conn.query(queryStmt,async (err, result) =>{
     console.log("token inside query ",token)
     console.log("inside soql query property id ",propertyRecordId)
     if (err) { console.log("error ",err) }  
     console.log("session inside Id ",req.headers)
     console.log("queried data ", result);
-      res.send(result)
+     await res.send(result)
     })
   }
 })
