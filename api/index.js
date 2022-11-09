@@ -20,7 +20,8 @@ app.use(bodyParser.urlencoded({
 app.use(cors());
 
 app.get('/api/hello',(req,res)=>{
-  res.send('Hello World');
+  console.log("tesing data inside hello");
+  res.send('Hello data card');
 })
 
 app.post('/api/connection', (req, res) =>{
@@ -86,19 +87,19 @@ app.post('/api/recordId', (req, res) => {
     if(propertyRecordId !== undefined){
     let queryStmt = "select id,CD_Project__c,Name,CD_Unit_Number__c,Type__c,CD_uaefield_Property_Sub_Type__c,CD_Title__c,CD_View__c,CD_Tower__c,CD_Area__c,CD_Country__c,CD_Floors__c,CD_Agent_Name__c ,Status__c from CD_Property__c where Id='"+propertyRecordId+"'";
     console.log('queryStmt:', queryStmt);
-    conn.query(queryStmt,async (err, result) =>{
+    conn.query(queryStmt,(err, result) =>{
     console.log("token inside query ",token)
     console.log("inside soql query property id ",propertyRecordId)
     if (err) { console.log("error ",err) }  
     console.log("session inside Id ",req.headers)
     console.log("queried data ", result);
-     await res.send(result)
+     res.send(result)
     })
   }
 })
-app.use('*',(req,res)=>{
-  res.send('Default Response');
-})
+// app.use('*',(req,res)=>{
+//   res.send('Default Response');
+// })
 app.listen(port, () => {
   console.log("Connected to port successfully")
 })
