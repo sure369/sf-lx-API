@@ -20,7 +20,8 @@ app.use(bodyParser.urlencoded({
 app.use(cors());
 
 app.get('/api/hello',(req,res)=>{
-  res.send('Hello World');
+  console.log("tesing data inside hello");
+  res.send('Hello data card');
 })
 
 app.post('/api/connection', (req, res) =>{
@@ -43,7 +44,6 @@ app.post('/api/userdetails', (req, res) => {
   console.log("inside user details  ")
   console.log("user id inside user details ", userid)
   let token = req.headers.token;
-  // console.log('token user detials record ', token);
   var conn = new jsforce.Connection({
     instanceUrl: 'https://gulfsothebysinternational--cddev.sandbox.my.salesforce.com',
     accessToken: token
@@ -53,8 +53,6 @@ app.post('/api/userdetails', (req, res) => {
       console.log("error log ", err)
     }
     else {
-      // console.log("inside user detials  ", result)
-      // console.log('name', result.records[0].Name);
       res.send(result.records[0].Name)
     }
   })
@@ -73,7 +71,7 @@ app.post('/api/getrecord', (req, res) => {
   })
 })
 console.log('test');
-app.post('/api/recordId', (req, res) => {
+app.post('/recordId', (req, res) => {
   var propertyRecordId;
   let token = req.headers.token;
   console.log(' get recordid page token ', token);
@@ -83,24 +81,25 @@ app.post('/api/recordId', (req, res) => {
   });
     console.log(req.query.searchId)
     console.log("session Id ",req.headers)
-    propertyRecordId = req.query.searchId 
+    propertyRecordId = req.query.searchId || "a2F1q000002dnpbEAA"
     console.log("propertyRecordId ",propertyRecordId)
     console.log("token outside query ",token)
     if(propertyRecordId !== undefined){
-    conn.query("select id,CD_Project__c,Name,CD_Unit_Number__c,Type__c,CD_uaefield_Property_Sub_Type__c,CD_Title__c,CD_View__c,CD_Tower__c,CD_Area__c,CD_Country__c,CD_Floors__c,CD_Agent_Name__c ,Status__c from CD_Property__c where Id='"+propertyRecordId+"'",(err, result) =>{
+    let queryStmt = "select id,CD_Project__c,Name,CD_Unit_Number__c,Type__c,CD_uaefield_Property_Sub_Type__c,CD_Title__c,CD_View__c,CD_Tower__c,CD_Area__c,CD_Country__c,CD_Floors__c,CD_Agent_Name__c ,Status__c from CD_Property__c where Id='"+propertyRecordId+"'";
+    console.log('queryStmt:', queryStmt);
+    conn.query(queryStmt,(err, result) =>{
     console.log("token inside query ",token)
     console.log("inside soql query property id ",propertyRecordId)
     if (err) { console.log("error ",err) }  
     console.log("session inside Id ",req.headers)
     console.log("queried data ", result);
-      res.send(result)
+     res.send(result)
     })
   }
- 
 })
-// app.use('*',(req,res)=>{
-//   res.send('Default Response test');
-// })
+app.use('*',(req,res)=>{
+  res.send('Default Response');
+})
 app.listen(port, () => {
   console.log("Connected to port successfully")
 })
