@@ -22,6 +22,7 @@ app.use(cors());
 app.get('/hello',(req,res)=>{
   res.send('Hello World');
 })
+
 app.post('/connection', (req, res) =>{
   console.log('inside node')
   const conn = new jsforce.Connection({ oauth2: oauth2 });
@@ -96,6 +97,9 @@ app.post('/recordId', (req, res) => {
     })
   }
  
+})
+app.use('*',(req,res)=>{
+  res.send('Default Response');
 })
 app.listen(port, () => {
   console.log("Connected to port successfully")
