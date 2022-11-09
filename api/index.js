@@ -43,7 +43,6 @@ app.post('/userdetails', (req, res) => {
   console.log("inside user details  ")
   console.log("user id inside user details ", userid)
   let token = req.headers.token;
-  // console.log('token user detials record ', token);
   var conn = new jsforce.Connection({
     instanceUrl: 'https://gulfsothebysinternational--cddev.sandbox.my.salesforce.com',
     accessToken: token
@@ -53,8 +52,6 @@ app.post('/userdetails', (req, res) => {
       console.log("error log ", err)
     }
     else {
-      // console.log("inside user detials  ", result)
-      // console.log('name', result.records[0].Name);
       res.send(result.records[0].Name)
     }
   })
@@ -87,7 +84,9 @@ app.post('/recordId', (req, res) => {
     console.log("propertyRecordId ",propertyRecordId)
     console.log("token outside query ",token)
     if(propertyRecordId !== undefined){
-    conn.query("select id,CD_Project__c,Name,CD_Unit_Number__c,Type__c,CD_uaefield_Property_Sub_Type__c,CD_Title__c,CD_View__c,CD_Tower__c,CD_Area__c,CD_Country__c,CD_Floors__c,CD_Agent_Name__c ,Status__c from CD_Property__c where Id='"+propertyRecordId+"'",(err, result) =>{
+    let queryStmt = "select id,CD_Project__c,Name,CD_Unit_Number__c,Type__c,CD_uaefield_Property_Sub_Type__c,CD_Title__c,CD_View__c,CD_Tower__c,CD_Area__c,CD_Country__c,CD_Floors__c,CD_Agent_Name__c ,Status__c from CD_Property__c where Id='"+propertyRecordId+"'";
+    console.log('queryStmt:', queryStmt);
+    conn.query(queryStmt,(err, result) =>{
     console.log("token inside query ",token)
     console.log("inside soql query property id ",propertyRecordId)
     if (err) { console.log("error ",err) }  
@@ -96,7 +95,6 @@ app.post('/recordId', (req, res) => {
       res.send(result)
     })
   }
- 
 })
 app.use('*',(req,res)=>{
   res.send('Default Response');
