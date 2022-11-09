@@ -70,7 +70,7 @@ app.post('/getrecord', (req, res) => {
   })
 })
 console.log('test');
-app.post('/recordId', (req, res) => {
+app.post('/api/recordId', (req, res) => {
   var propertyRecordId;
   let token = req.headers.token;
   console.log(' get recordid page token ', token);
