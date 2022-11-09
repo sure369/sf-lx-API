@@ -19,7 +19,9 @@ app.use(bodyParser.urlencoded({
 }))
 app.use(cors());
 
-
+app.get('/hello',(req,res)=>{
+  res.send('Hello World');
+})
 app.post('/connection', (req, res) =>{
   console.log('inside node')
   const conn = new jsforce.Connection({ oauth2: oauth2 });
