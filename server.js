@@ -69,6 +69,7 @@ app.post('/getrecord', (req, res) => {
     res.send(result)
   })
 })
+console.log('test');
 app.post('/recordId', (req, res) => {
   var propertyRecordId;
   let token = req.headers.token;
