@@ -10,7 +10,7 @@ var oauth2 = new jsforce.OAuth2({
   loginUrl: 'https://gulfsothebysinternational--cddev.sandbox.my.salesforce.com',
   clientId: '3MVG9GXbtnGKjXe7F9lwjAiAmI0L4sNQkwMccr1wXX8E6k_R_hM.B0QCl23_lvLpJAMeLUnIK4DANKwKRQ0Ot',
   clientSecret: '970ACB43CDD44544F5C3C432A941FFE2C1CAC9A160009D6F1C26742EF7C61D31',
-  redirectUri: `https://sf-react.vercel.app/redirect`,
+  redirectUri:'http://localhost:3000/redirect',
 });
 var token = "";
 var userid = "";
