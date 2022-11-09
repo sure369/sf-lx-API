@@ -100,3 +100,5 @@ app.post('/recordId', (req, res) => {
 app.listen(port, () => {
   console.log("Connected to port successfully")
 })
+
+module.export = app;
